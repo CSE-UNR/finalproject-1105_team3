@@ -1,0 +1,41 @@
+﻿CS DESIGN PROJECT 
+
+
+FUNCTIONS 
+
+
+1 MAIN()
+- Orchestrates the program flow. 
+- Displays a menu of options to the user. 
+- Invokes corresponding functions based on the user's choice.
+
+
+
+
+2 LOAD IMAGE()
+- Prompts the user to input a file name. 
+- Reads the contents of the image file and stores it in memory. 
+- Displays a confirmation message upon successful loading.
+
+
+3 DISPLAY IMAGE()
+-Retrieves the current image stored in memory.
+ - Displays the image to the user for viewing. 
+
+
+4 CROP()
+* Input: Current image file, users desired dimensions and center point
+* Output: new image file meeting users set parameters
+* Functionality: change dimensions for a new 2D array
+
+
+5 DIM()
+* Input: current image choice
+* Output: current image but each value is decreased by 1
+* Functionality: change what is stored in 2D array 
+
+
+6 BRIGHTEN()
+* Input: current image choice
+* Output: current image but each value is increased by 1
+* Functionality: change what is stored in 2D array
