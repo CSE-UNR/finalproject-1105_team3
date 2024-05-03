@@ -4,12 +4,13 @@
 
 #include <stdio.h>
 
-
+int dim(int* currentFile);
+int brighten(int* currentFile);
 
 int main(){
 int choice1, choice2; 
 	do{
-		printf("**ERINSTAGRAM**\n");
+		printf("\n**ERINSTAGRAM**\n");
 		printf("1: Load image\n");
 		printf("2: Display image\n");
 		printf("3: Edit image\n");
@@ -32,6 +33,25 @@ int choice1, choice2;
 			printf("0: Return to main menu\n\n");
 			printf("Choose from one of the options above: ");
 			scanf("%d", &choice2);
+			
+				if(choice2 == 1){
+					printf("...under maintenance...\n sorry!\n\n");
+//					printf("\nWould you like to save the file? (y/n) ");
+//					scanf(" %c", &response);
+				}
+				if(choice2 == 2){
+//					dim();
+					printf("\nWould you like to save the file? (y/n) ");
+//					scanf(" %c", &response);
+				}
+				if(choice2 == 3){
+//					brighten(); 
+					printf("\nWould you like to save the file? (y/n) ");
+//					scanf(" %c", &response); 
+				}
+				if(choice2 == 0){
+					printf("\n"); 
+				}
 			break;
 		case 0:
 			printf("Goodbye!\n");
@@ -43,7 +63,22 @@ int choice1, choice2;
 		
 	}while(choice1 != 0); 
 	
-	
 
 	return 0; 
 }
+
+int dim(int* currentFile){
+
+}
+
+int brighten(int* currentFile){
+
+}
+
+
+
+
+
+
+
+
