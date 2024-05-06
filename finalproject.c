@@ -3,9 +3,9 @@
 //Objective: final project/ 2D Arrays
 
 #include <stdio.h>
-#
 
-int dim(int* currentFile);
+
+void dim();
 int brighten(int* currentFile);
 
 int main(){
@@ -106,7 +106,7 @@ int choice1, choice2;
 //					scanf(" %c", &response);
 				}
 				if(choice2 == 2){
-//					dim();
+					dim();
 					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response);
 				}
@@ -135,8 +135,30 @@ int choice1, choice2;
 
 
 
-int dim(int* currentFile){
-
+void dim(){     
+char line[100];
+    for (int i = 0; line[i] != '\0'; i++) {
+                char display_char;
+                switch (line[i]) {
+                    case '0':
+                        display_char = ' ';
+                        break;
+                    case '1':
+                        display_char = ' ';
+                        break;
+                    case '2':
+                        display_char = '.';
+                        break;
+                    case '3':
+                        display_char = 'o';
+                        break;
+                    case '4':
+                        display_char = 'O';
+                        break;
+                }
+                printf("%c", display_char);
+            }
+            printf("\n"); // Move to the next line after printing 
 }
 
 int brighten(int* currentFile){
