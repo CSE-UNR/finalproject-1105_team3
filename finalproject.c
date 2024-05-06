@@ -163,7 +163,7 @@ while (fgets(line, sizeof(line), file) != NULL) {
                     case '3':
                         display_char = 'o';
                         break;
-                    case '4':
+0                    case '4':
                         display_char = 'O';
                         break;
                 }
