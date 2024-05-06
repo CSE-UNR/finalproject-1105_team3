@@ -5,8 +5,8 @@
 #include <stdio.h>
 
 
-char dim();
-int brighten(int* currentFile);
+char dim(int line[]);
+int brighten();
 int crop(); 
 
 int main(){
@@ -103,16 +103,16 @@ int choice1, choice2;
 			
 				if(choice2 == 1){
 					crop();
-//					printf("\nWould you like to save the file? (y/n) ");
+					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response);
 				}
 				if(choice2 == 2){
-					dim();
+					dim(line[]);
 					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response);
 				}
 				if(choice2 == 3){
-//					brighten(); 
+					brighten(); 
 					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response); 
 				}
@@ -136,55 +136,34 @@ int choice1, choice2;
 
 
 
-char dim(){     
- char filename[100];
-	   FILE *file = fopen(filename, "r");
-        if (file == NULL) {
-            printf("Failed to open file.\n");
-
-        }
-char line[100];
-    for (int i = 0; line[i] != '\0'; i++) {
-                char display_char;
-                switch (line[i]) {
-                    case '0':
-                        display_char = ' ';
-                        break;
-                    case '1':
-                        display_char = ' ';
-                        break;
-                    case '2':
-                        display_char = '.';
-                        break;
-                    case '3':
-                        display_char = 'o';
-                        break;
-                    case '4':
-                        display_char = 'O';
-                        break;
-                }
-                printf("%c", display_char);
-            }
-            printf("\n"); // Move to the next line after printing 
+char dim(int line[]){     
+int ROW, COL; 
+do{
+	for(int i = 0; i < ROW; i++){
+		for(int j = 0; j < COL; j++){
+			line[i][j] = line[i][j]-= 1;
+		}
+	printf("%d", line[i][j]);
 	}
-	//fclose(file);
+}while(i != '\0') && (j != '\0'); 
+}
 
-int brighten(int* currentFile){
+int brighten(){
 
 }
 
 int crop(){
-int length, width. Lcol, Rcol, top, bottom;
+int length, width, Lcol, Rcol, top, bottom;
 	printf("The image you want to crop is %d x %d.\n", length, width);
 	printf("The row and column values start in the upper lefthand corner.\n\n");
 	printf("Which column do you want to be the new left side?");
-	scanf("%d", Lcol); 
+	scanf("%d", &Lcol); 
 	printf("\nwhich column do you want to be the new right side?");
-	scanf("%d", Rcol);
+	scanf("%d", &Rcol);
 	printf("\nWhich row do you want to be the new top?");
-	scanf("%d", top); 
+	scanf("%d", &top); 
 	printf("\nWhich row do you you want to be the new bottom?");
-	scanf("%d", bottom); 
+	scanf("%d", &bottom); 
 	//display new image
 
 }
