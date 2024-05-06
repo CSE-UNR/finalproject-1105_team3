@@ -5,11 +5,16 @@
 #include <stdio.h>
 
 
-char dim(int line[]);
+char dim();
 int brighten();
 int crop(); 
 
+char line[100];
+FILE *file;
+char filename[100];
+
 int main(){
+
 int choice1, choice2; 
 	do{
 		printf("\n**ERINSTAGRAM**\n");
@@ -53,17 +58,17 @@ int choice1, choice2;
 
 		case 2:
     {
-        char filename[100];
+        
         printf("Enter filename: ");
         scanf("%s", filename);
         
-        FILE *file = fopen(filename, "r");
+        file = fopen(filename, "r");
         if (file == NULL) {
             printf("Failed to open file.\n");
             break;
         }
        
-        char line[100]; 
+         
         while (fgets(line, sizeof(line), file) != NULL) {
             for (int i = 0; line[i] != '\0'; i++) {
                 char display_char;
@@ -107,7 +112,7 @@ int choice1, choice2;
 //					scanf(" %c", &response);
 				}
 				if(choice2 == 2){
-					dim(line[]);
+					dim();
 					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response);
 				}
@@ -136,16 +141,36 @@ int choice1, choice2;
 
 
 
-char dim(int line[]){     
-int ROW, COL; 
-do{
-	for(int i = 0; i < ROW; i++){
-		for(int j = 0; j < COL; j++){
-			line[i][j] = line[i][j]-= 1;
-		}
-	printf("%d", line[i][j]);
+char dim(){     
+	file = fopen(filename, "r");
+	if (file == NULL) {
+	    printf("Failed to open file.\n");
+	    
 	}
-}while(i != '\0') && (j != '\0'); 
+while (fgets(line, sizeof(line), file) != NULL) {
+            for (int i = 0; line[i] != '\0'; i++) {
+                char display_char;
+                switch (line[i]) {
+                    case '0':
+                        display_char = ' ';
+                        break;
+                    case '1':
+                        display_char = ' ';
+                        break;
+                    case '2':
+                        display_char = '.';
+                        break;
+                    case '3':
+                        display_char = 'o';
+                        break;
+                    case '4':
+                        display_char = 'O';
+                        break;
+                }
+                printf("%c", display_char);
+            }
+            printf("\n"); // Move to the next line after printing each line
+        }
 }
 
 int brighten(){
