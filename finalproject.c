@@ -3,6 +3,7 @@
 //Objective: final project/ 2D Arrays
 
 #include <stdio.h>
+#
 
 int dim(int* currentFile);
 int brighten(int* currentFile);
