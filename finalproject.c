@@ -19,12 +19,77 @@ int choice1, choice2;
 		scanf("%d", &choice1);
 		
 		switch(choice1){
-		case 1:
-		
-			break;
+		case 1: // Reads the file
+{
+    char filename[100];
+    printf("What is the name of the image file? ");
+    scanf(" %s", filename);
+    
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Could not find an image with that filename.\n");
+        break;
+    }
+    
+    int width, height;
+    fscanf(file, "%d %d", &width, &height);
+    
+    int image[height][width];
+    
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            fscanf(file, "%d", &image[i][j]);
+        }
+    }
+    
+    fclose(file);
+    printf("Image loaded successfully!\n");
+    
+   
+    break;
+}
+
 		case 2:
-		
-			break;
+    {
+        char filename[100];
+        printf("Enter filename: ");
+        scanf("%s", filename);
+        
+        FILE *file = fopen(filename, "r");
+        if (file == NULL) {
+            printf("Failed to open file.\n");
+            break;
+        }
+       
+        char line[100]; 
+        while (fgets(line, sizeof(line), file) != NULL) {
+            for (int i = 0; line[i] != '\0'; i++) {
+                char display_char;
+                switch (line[i]) {
+                    case '0':
+                        display_char = ' ';
+                        break;
+                    case '1':
+                        display_char = '.';
+                        break;
+                    case '2':
+                        display_char = 'o';
+                        break;
+                    case '3':
+                        display_char = 'O';
+                        break;
+                    case '4':
+                        display_char = '0';
+                        break;
+                }
+                printf("%c", display_char);
+            }
+            printf("\n"); // Move to the next line after printing each line
+        }
+        
+        fclose(file);
+    }
+    break;
 		case 3: 
 			printf("\n\n**EDITING**\n");
 			printf("1: Crop image\n");
@@ -76,11 +141,5 @@ int dim(int* currentFile){
 int brighten(int* currentFile){
 
 }
-
-
-
-
-
-
 
 
