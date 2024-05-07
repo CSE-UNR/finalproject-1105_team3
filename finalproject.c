@@ -28,76 +28,59 @@ int choice1, choice2;
 		switch(choice1){
 		case 1: // Reads the file
 {
-    char filename[100];
     printf("What is the name of the image file? ");
-    scanf(" %s", filename);
+    scanf("%s", filename); 
     
-    FILE *file = fopen(filename, "r");
+    file = fopen(filename, "r");
     if (file == NULL) {
         printf("Could not find an image with that filename.\n");
         break;
     }
     
-    int width, height;
-    fscanf(file, "%d %d", &width, &height);
-    
-    int image[height][width];
-    
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-            fscanf(file, "%d", &image[i][j]);
-        }
-    }
-    
     fclose(file);
     printf("Image loaded successfully!\n");
     
-   
     break;
 }
 
-		case 2:
-    {
-        
-        printf("Enter filename: ");
-        scanf("%s", filename);
-        
-        file = fopen(filename, "r");
-        if (file == NULL) {
-            printf("Failed to open file.\n");
-            break;
-        }
-       
-         
-        while (fgets(line, sizeof(line), file) != NULL) {
-            for (int i = 0; line[i] != '\0'; i++) {
-                char display_char;
-                switch (line[i]) {
-                    case '0':
-                        display_char = ' ';
-                        break;
-                    case '1':
-                        display_char = '.';
-                        break;
-                    case '2':
-                        display_char = 'o';
-                        break;
-                    case '3':
-                        display_char = 'O';
-                        break;
-                    case '4':
-                        display_char = '0';
-                        break;
-                }
-                printf("%c", display_char);
-            }
-            printf("\n"); // Move to the next line after printing each line
-        }
-        
-        fclose(file);
+        case 2://displays image
+{
+
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("Failed to open file.\n");
+        break;
     }
-    break;
-		case 3: 
+
+    while (fgets(line, sizeof(line), file) != NULL) {
+        for (int i = 0; line[i] != '\0'; i++) {
+            char display_char;
+            switch (line[i]) {
+                case '0':
+                    display_char = ' ';
+                    break;
+                case '1':
+                    display_char = '.';
+                    break;
+                case '2':
+                    display_char = 'o';
+                    break;
+                case '3':
+                    display_char = 'O';
+                    break;
+                case '4':
+                    display_char = '0';
+                    break;
+            }
+            printf("%c", display_char);
+        }
+        printf("\n"); // Move to the next line after printing each line
+    }
+    
+    fclose(file); // Close the file after reading
+}
+break;
+		case 3: //edits the image
 			printf("\n\n**EDITING**\n");
 			printf("1: Crop image\n");
 			printf("2: Dim image\n");
@@ -113,12 +96,10 @@ int choice1, choice2;
 				}
 				if(choice2 == 2){
 					dim();
-					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response);
 				}
 				if(choice2 == 3){
 					brighten(); 
-					printf("\nWould you like to save the file? (y/n) ");
 //					scanf(" %c", &response); 
 				}
 				if(choice2 == 0){
@@ -138,8 +119,6 @@ int choice1, choice2;
 
 	return 0; 
 }
-
-
 
 char dim(){     
 	file = fopen(filename, "r");
@@ -163,7 +142,7 @@ while (fgets(line, sizeof(line), file) != NULL) {
                     case '3':
                         display_char = 'o';
                         break;
-0                    case '4':
+                    case '4':
                         display_char = 'O';
                         break;
                 }
@@ -173,8 +152,73 @@ while (fgets(line, sizeof(line), file) != NULL) {
         }
 }
 
-int brighten(){
+int brighten() {
+    FILE *readFile = fopen(filename, "r");
+    if (readFile == NULL) {
+        printf("Failed to open file.\n");
+        return 1;
+    }
 
+    FILE *writeFile = NULL;
+    int saveOption = 0;
+
+    // Read and display the image
+    while (fgets(line, sizeof(line), readFile) != NULL) {
+        for (int i = 0; line[i] != '\0'; i++) {
+            char display_char;
+            switch (line[i]) {
+                case '0':
+                    display_char = '.';
+                    break;
+                case '1':
+                    display_char = 'o';
+                    break;
+                case '2':
+                    display_char = 'O';
+                    break;
+                case '3':
+                    display_char = '0';
+                    break;
+                case '4':
+                    display_char = '0';
+                    break;
+                default:
+                    display_char = line[i]; 
+            }
+            printf("%c", display_char);
+        }
+        printf("\n"); 
+    }
+    fclose(readFile);
+
+    // if user wants to save file
+    char response;
+    printf("\nWould you like to save the file? (y/n) ");
+    scanf(" %c", &response);
+    if (response == 'y' || response == 'Y') {
+        saveOption = 1;
+    }
+
+    if (saveOption) {
+        printf("What do you want to name the image file? (include the extension)  ");
+        scanf("%s", filename);
+
+        writeFile = fopen(filename, "w");
+        if (writeFile == NULL) {
+            printf("Failed to open file for writing.\n");
+            return 1;
+        }
+
+        // Write all number lines to the new file
+        readFile = fopen(filename, "r");
+        while (fgets(line, sizeof(line), readFile) != NULL) {
+            fprintf(writeFile, "%s", line);
+        }
+        fclose(writeFile);
+        printf("Image successfully saved!");
+        printf("\n");
+    }
+    return 0;
 }
 
 int crop(){
