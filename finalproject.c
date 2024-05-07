@@ -264,20 +264,49 @@ int Lcol, Rcol, top, bottom;
         printf("Failed to open file.\n");
         return 1;
     }
-int rows = 1, columns = 0;
+int rows = 0, columns = 0; 
 char ch; 
+	
 	fgets(line, sizeof(line),readFile);
 	for(int i = 0; line[i] != '\0'; i++){
 		if(line[i] != '\n'){
-			columns++;
+			columns++;,
+			
+/*	printf("1"); 
+		for(int j = 0; line[j] = columns; j++){
+			if(line[j]= j){
+				printf(" ");
+			}
+		}
+	printf("%d", columns);
+*/	
+            char display_char;
+            switch (line[i]) {
+                case '0':
+                    display_char = ' ';
+                    break;
+                case '1':
+                    display_char = '.';
+                    break;
+                case '2':
+                    display_char = 'o';
+                    break;
+                case '3':
+                    display_char = 'O';
+                    break;
+                case '4':
+                    display_char = '0';
+                    break;
+            }
+            printf("%c", display_char);
 		}
 	}
+	printf("\n");
 	while(fgets(line, sizeof (line), readFile) != NULL){
 			rows++;
-		}
-		
-/*	while (fgets(line, sizeof(line), file) != NULL) {
-        for (int i = 0; line[i] != '\0'; i++) {
+
+			
+	  for (int i = 0; line[i] != '\0'; i++) {
             char display_char;
             switch (line[i]) {
                 case '0':
@@ -298,8 +327,14 @@ char ch;
             }
             printf("%c", display_char);
         }
-        printf("\n"); // Move to the next line after printing each line
-    } */
+        printf("\n"); 
+		} 
+		rows++;
+
+		
+	//while (fgets(line, sizeof(line), file) != NULL) {
+      // Move to the next line after printing each line
+    
     
 	printf("The image you want to crop is %d x %d.\n", rows, columns);
 	printf("The row and column values start in the upper lefthand corner.\n\n");
