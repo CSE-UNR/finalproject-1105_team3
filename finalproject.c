@@ -48,7 +48,7 @@ int choice1, choice2;
 
     file = fopen(filename, "r");
     if (file == NULL) {
-        printf("Failed to open file.\n");
+        printf("Sorry, no image to display\n");
         break;
     }
 
@@ -121,12 +121,17 @@ break;
 }
 
 char dim(){     
-	file = fopen(filename, "r");
-	if (file == NULL) {
+	FILE *readFile = fopen(filename, "r");
+	if (readFile == NULL) {
 	    printf("Failed to open file.\n");
-	    
+	    return 1;
 	}
-while (fgets(line, sizeof(line), file) != NULL) {
+	
+	 FILE *writeFile = NULL;
+         int saveOption = 0;
+	    
+
+while (fgets(line, sizeof(line), readFile) != NULL) {
             for (int i = 0; line[i] != '\0'; i++) {
                 char display_char;
                 switch (line[i]) {
@@ -150,6 +155,36 @@ while (fgets(line, sizeof(line), file) != NULL) {
             }
             printf("\n"); // Move to the next line after printing each line
         }
+           fclose(file);
+
+    // if user wants to save file
+    char response;
+    printf("\nWould you like to save the file? (y/n) ");
+    scanf(" %c", &response);
+    if (response == 'y' || response == 'Y') {
+        saveOption = 1;
+    }
+
+    if (saveOption) {
+        printf("What do you want to name the image file? (include the extension)  ");
+        scanf("%s", filename);
+
+        writeFile = fopen(filename, "w");
+        if (writeFile == NULL) {
+            printf("Failed to open file for writing.\n");
+            return 1;
+        }
+
+        // Write all number lines to the new file
+        readFile = fopen(filename, "r");
+        while (fgets(line, sizeof(line), readFile) != NULL) {
+            fprintf(writeFile, "%s", line);
+        }
+        fclose(writeFile);
+        printf("Image successfully saved!");
+        printf("\n");
+    }
+    return 0;
 }
 
 int brighten() {
@@ -187,9 +222,9 @@ int brighten() {
             }
             printf("%c", display_char);
         }
-        printf("\n"); 
+ 
     }
-    fclose(readFile);
+     fclose(readFile);
 
     // if user wants to save file
     char response;
@@ -222,8 +257,51 @@ int brighten() {
 }
 
 int crop(){
-int length, width, Lcol, Rcol, top, bottom;
-	printf("The image you want to crop is %d x %d.\n", length, width);
+int Lcol, Rcol, top, bottom;
+
+  FILE *readFile = fopen(filename, "r");
+    if (readFile == NULL) {
+        printf("Failed to open file.\n");
+        return 1;
+    }
+int rows = 1, columns = 0;
+char ch; 
+	fgets(line, sizeof(line),readFile);
+	for(int i = 0; line[i] != '\0'; i++){
+		if(line[i] != '\n'){
+			columns++;
+		}
+	}
+	while(fgets(line, sizeof (line), readFile) != NULL){
+			rows++;
+		}
+		
+/*	while (fgets(line, sizeof(line), file) != NULL) {
+        for (int i = 0; line[i] != '\0'; i++) {
+            char display_char;
+            switch (line[i]) {
+                case '0':
+                    display_char = ' ';
+                    break;
+                case '1':
+                    display_char = '.';
+                    break;
+                case '2':
+                    display_char = 'o';
+                    break;
+                case '3':
+                    display_char = 'O';
+                    break;
+                case '4':
+                    display_char = '0';
+                    break;
+            }
+            printf("%c", display_char);
+        }
+        printf("\n"); // Move to the next line after printing each line
+    } */
+    
+	printf("The image you want to crop is %d x %d.\n", rows, columns);
 	printf("The row and column values start in the upper lefthand corner.\n\n");
 	printf("Which column do you want to be the new left side?");
 	scanf("%d", &Lcol); 
