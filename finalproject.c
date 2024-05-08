@@ -408,6 +408,26 @@ char ch;
 	printf("\nWhich row do you you want to be the new bottom?");
 	scanf("%d", &bottom); 
 	//display new image
-
+	
+	int g;
+	for(int rows = top; rows < bottom; rows++){
+		for(int columns = Lcol; columns < Rcol; column++){
+			if(line [rows][columns] == '0'){
+				printf(" ");
+			}
+			else if(line(line [rows][columns] == '1'){
+				printf(".");
+			}
+			else if(line(line [rows][columns] == '2'){
+				printf("o");
+			}
+			else if(line(line [rows][columns] == '3'){
+				printf("O");
+			}
+			else if(line(line [rows][columns] == '4'){
+				printf("0");
+			}
+		}
+	}
 }
 
